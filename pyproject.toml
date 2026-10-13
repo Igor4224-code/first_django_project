@@ -1,0 +1,19 @@
+[project]
+name = "first-django-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Igor Ivashkin", email = "Igor7.0@inbox.ru" }
+]
+requires-python = ">=3.15"
+dependencies = [
+    "django>=6.1.2",
+]
+
+[project.scripts]
+first-django-project = "first_django_project:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"

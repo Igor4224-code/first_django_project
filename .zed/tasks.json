@@ -1,0 +1,7 @@
+[
+  {
+    "label": "Django: Runserver",
+    "command": ".venv/Scripts/python manage.py runserver",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]
