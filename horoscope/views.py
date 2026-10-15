@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 
 zodiak_dict = {
@@ -18,8 +18,16 @@ zodiak_dict = {
 
 
 def get_zodiak(request, sign_zodiak: str):
-    descript = zodiak_dict.get(sign_zodiak, None)
-    if descript:
-        return HttpResponse(descript)
+    description = zodiak_dict.get(sign_zodiak, None)
+    if description:
+        return HttpResponse(description)
+    else:
+        return HttpResponseNotFound(f'Страница {sign_zodiak} не существует')
+
+
+def get_zodiak_by_number(request, sign_zodiak: int):
+    zodiak_list = list(zodiak_dict)
+    if 0 < sign_zodiak < len(zodiak_list) + 1:
+        return HttpResponseRedirect(f'/horoscope/{zodiak_list[sign_zodiak - 1]}')
     else:
         return HttpResponseNotFound(f'Страница {sign_zodiak} не существует')
