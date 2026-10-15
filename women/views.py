@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
 
 
@@ -15,4 +15,6 @@ def categories_slug(request, cats_slug):
 
 
 def archive(request, year):
+    if year > 2027:
+        raise Http404()
     return HttpResponse(f"<h1>Архив по годам</h1><p>Год: {year}</p>")
