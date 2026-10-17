@@ -2,22 +2,20 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-
-class MyClass:
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
+data_db = [
+    {'id': 1, 'title': 'Анджелина Джоли', 'content': '''<h1>Анджелина Джоли</h1> (англ. Angelina Jolie[7], при рождении Войт (англ. Voight), ранее Джоли Питт (англ. Jolie Pitt); род. 4 июня 1975, Лос-Анджелес, Калифорния, США) — американская актриса кино, телевидения и озвучивания, кинорежиссёр, сценаристка, продюсер, фотомодель, посол доброй воли ООН.
+        Обладательница премии «Оскар», трёх премий «Золотой глобус» (первая актриса в истории, три года подряд выигравшая премию) и двух «Премий Гильдии киноактёров США».''',
+        'is_published': True},
+    {'id': 2, 'title': 'Марго Робби', 'content': 'Биография Марго Робби', 'is_published': False},
+    {'id': 3, 'title': 'Джулия Робертс', 'content': 'Биография Джулии Робертс', 'is_published': True},
+]
 
 
 def index(request):
     data: dict = {
         'title': 'Главная страница',
         'menu': ['Главная', 'Все статьи', 'Добавить статью', 'Добавить комментарий'],
-        'float': 34.28,
-        'list': ['a', 'b', 'c', True, 34.28, None, [1, 2, 3], {'a': 1}, {'a': 1}],
-        'dict': {'key_1': 'value_1', 'key_2': 'value_2', 'key_3': 'value_3'},
-        'set': {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 2, 5},
-        'obj': MyClass(10, 20),
+        'posts': data_db,
 }
     return render(request, 'women/index.html', context=data)
 

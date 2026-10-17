@@ -4,12 +4,19 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <p>{{ menu }}</p>
+    <h2>{{ menu|join:" | " }}</h2>
     <h1>{{ title }}</h1>
-    <p>{{ float }}</p>
-    <p>{{ list.3 }}</p>
-    <p>{{ dict.key_2 }}</p>
-    <p>{{ set }}</p>
-    <p>{{ obj.a }}</p>
+    <ul>
+    {% for p in posts %}
+    {% if p.is_published %}
+        <li><h2>{{ p.title }}</h2>
+            <p>{{ p.content }}</p>
+        </li>
+        {% if not forloop.last %}
+        <hr>
+        {% endif %}
+    {% endif %}
+    {% endfor %}
+    </ul>
 </body>
 </html>
