@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
 zodiak_dict = {
     'zodiak': '<h1>Знак зодиака Овен</h1>',
@@ -17,6 +18,20 @@ zodiak_dict = {
 }
 
 
+def index(request):
+    sign_zodiak = list(zodiak_dict)
+    temp_output = ''
+    for sign in sign_zodiak:
+        redirect_url = reverse('zodiak', args=(sign, ))
+        temp_output += f'<li><a href="{redirect_url}"><h2>{sign.title()}</h2></a></li>'
+    result_output = f'''
+    <ul>
+    {temp_output}
+    </ul>
+    '''
+    return HttpResponse(result_output)
+
+
 def get_zodiak(request, sign_zodiak: str):
     description = zodiak_dict.get(sign_zodiak, None)
     if description:
@@ -28,6 +43,8 @@ def get_zodiak(request, sign_zodiak: str):
 def get_zodiak_by_number(request, sign_zodiak: int):
     zodiak_list = list(zodiak_dict)
     if 0 < sign_zodiak < len(zodiak_list) + 1:
-        return HttpResponseRedirect(f'/horoscope/{zodiak_list[sign_zodiak - 1]}')
+        name_zodiak = zodiak_list[sign_zodiak - 1]
+        redirect_url = reverse('zodiak', args=(name_zodiak, ))
+        return redirect(redirect_url)
     else:
         return HttpResponseNotFound(f'Страница {sign_zodiak} не существует')

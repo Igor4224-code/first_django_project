@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$+i9=o0&)881^_0z$nb1r5h0^0l7%s&^x7*i_0sgpp7$x6t@l2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'bboard',
-    'horoscope',
-    'women',
+    'bboard.apps.BboardConfig',
+    'horoscope.apps.HoroscopeConfig',
+    'women.apps.WomenConfig',
 ]
 
 MIDDLEWARE = [
