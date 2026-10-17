@@ -2,8 +2,8 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-zodiak_dict = {
-    'zodiak': '<h1>Знак зодиака Овен</h1>',
+zodiak_dict: dict = {
+    'aries': '<h1>Знак зодиака Овен</h1>',
     'taurus': '<h1>Знак зодиака Телец</h1>',
     'gemini': '<h1>Знак зодиака Близнецы</h1>',
     'cancer': '<h1>Знак зодиака Рак</h1>',
@@ -16,6 +16,11 @@ zodiak_dict = {
     'aquaris': '<h1>Знак зодиака Водолей</h1>',
     'pisces': '<h1>Знак зодиака Рыбы</h1>',
 }
+
+zodiak_type_dict: dict = {'fire': ['aries', 'leo', 'sagittarius'],
+    'earth': ['taurus', 'virgo', 'capricorn'],
+    'air': ['gemini', 'leo', 'aquarius'],
+    'water': ['cancer', 'scorpio', 'pisces']}
 
 
 def index(request):
@@ -48,3 +53,14 @@ def get_zodiak_by_number(request, sign_zodiak: int):
         return redirect(redirect_url)
     else:
         return HttpResponseNotFound(f'Страница {sign_zodiak} не существует')
+
+def get_type(request, type_zodiak: str):
+    if type_zodiak not in zodiak_type_dict:
+        return HttpResponseNotFound(f'Страница {type_zodiak} не существует')
+
+    temp_str = ''
+    for sign in zodiak_type_dict[type_zodiak]:
+        redirect_url = reverse('zodiak', args=(sign, ))
+        temp_str += f'<li><a href="{redirect_url}"><h2>{sign.title()}</h2></a></li>'
+    show_zodiaks = f'''<ul>{temp_str}</ul>'''
+    return HttpResponse(show_zodiaks)
