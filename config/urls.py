@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import page_not_found
+from .views import page_not_found, index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index, name='main_home'),
     path('women/', include('women.urls')),
     path('horoscope/', include('horoscope.urls')),
     path('bboard/', include('bboard.urls')),
