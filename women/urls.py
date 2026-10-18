@@ -6,9 +6,10 @@ from . import views
 register_converter(converters.ForDigitYearConverter, "year4")
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.index, name='home'),
     path('about/', views.about, name='about'),
-    path('cats/<int:cats_id>/', views.categories, name='cats'),
-    path('cats/<slug:cats_slug>/', views.categories_slug, name='cats_slug'),
-    path('archive/<year4:year>/', views.archive, name='year'),
+    path('addpage/', views.add_page, name='add_page'),
+    path('contact/', views.contact, name='contact'),
+    path('login/', views.login, name='login'),
+    path('post/<int:post_id>', views.show_post, name='post'),
 ]

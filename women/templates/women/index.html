@@ -4,7 +4,13 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <h2>{{ menu|join:" | " }}</h2>
+<ul>
+    <li><h2><a href="{% url 'home' %}">Главная страница</a></h2></li>
+    {% for m in menu %}
+    {% if not forloop.last %}<li>{% else %}<li class="last">{% endif %}
+         <h2><a href="{% url m.url_name %}">{{ m.title }}</a></h2></li>
+    {% endfor %}
+</ul>
     <h1>{{ title }}</h1>
     <ul>
     {% for p in posts %}
@@ -12,6 +18,7 @@
         <li><h2>{{ p.title }}</h2>
             <p>{{ p.content }}</p>
         </li>
+        <p><a href="{% url 'post' p.id %}">Читать пост</a></p>
         {% if not forloop.last %}
         <hr>
         {% endif %}
