@@ -17,12 +17,19 @@ data_db = [
     {'id': 3, 'title': 'Джулия Робертс', 'content': 'Биография Джулии Робертс', 'is_published': True},
 ]
 
+cats_db = [
+    {'id': 1, 'name': 'Актрисы'},
+    {'id': 2, 'name': 'Певицы'},
+    {'id': 3, 'name': 'Спортсменки'},
+]
+
 
 def index(request):
     data: dict = {
-        'title': 'Главная страница',
+        'title': 'Отображение по категориям',
         'posts': data_db,
         'menu': menu,
+        'cat_selected': 0,
 }
     return render(request, 'women/index.html', context=data)
 
@@ -45,3 +52,13 @@ def login(request):
 
 def show_post(request, post_id):
     return HttpResponse(f'<h1>Статья {post_id}</h1>')
+
+
+def show_category(request, cat_id):
+    data: dict = {
+        'title': 'Отображение по рубрикам',
+        'posts': data_db,
+        'menu': menu,
+        'cat_selected': cat_id,
+}
+    return render(request, 'women/index.html', context=data)

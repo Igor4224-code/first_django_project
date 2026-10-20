@@ -25,16 +25,11 @@ zodiak_type_dict: dict = {'fire': ['aries', 'leo', 'sagittarius'],
 
 def index(request):
     sign_zodiak = list(zodiak_dict)
-    temp_output = ''
-    for sign in sign_zodiak:
-        redirect_url = reverse('zodiak', args=(sign, ))
-        temp_output += f'<li><a href="{redirect_url}"><h2>{sign.title()}</h2></a></li>'
-    result_output = f'''
-    <ul>
-    {temp_output}
-    </ul>
-    '''
-    return HttpResponse(result_output)
+    data: dict = {
+        'title': 'Гороскоп',
+        'sign_zodiak': sign_zodiak,
+    }
+    return render(request, 'horoscope/info_zodiak.html', context=data)
 
 
 def get_zodiak(request, sign_zodiak: str):

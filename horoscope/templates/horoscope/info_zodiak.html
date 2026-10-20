@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+{% for zodiak in sign_zodiak %}
+<ul>
+    <li><a href="{% url 'zodiak' zodiak %}"><h3>{{ zodiak.title }}</h3></a></li>
+</ul>
+{% endfor %}
+{% endblock %}
