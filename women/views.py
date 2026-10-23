@@ -27,7 +27,7 @@ cats_db = [
 
 
 def index(request):
-    posts = Women.objects.filter(is_published=True)
+    posts = Women.published.all()
 
     data: dict = {
         'title': 'Отображение по категориям',
