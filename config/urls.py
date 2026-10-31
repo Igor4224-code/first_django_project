@@ -24,6 +24,7 @@ urlpatterns = [
     path('women/', include('women.urls')),
     path('horoscope/', include('horoscope.urls')),
     path('bboard/', include('bboard.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 handler404 = page_not_found
