@@ -1,8 +1,11 @@
+import os
+import tempfile
+
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 
-from .forms import AddPostForm
+from .forms import AddPostForm, UploadFileForm
 from .models import TagPost, Women, Category
 
 menu = [
@@ -25,8 +28,27 @@ def index(request):
     return render(request, 'women/index.html', context=data)
 
 
+def handle_uploaded_file(f):
+    with open(f"uploads/{f.name}", "wb+") as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+
 def about(request):
-    return render(request, 'women/about.html', {'title': 'О сайте'})
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(form.cleaned_data['file'])
+    else:
+        form = UploadFileForm()
+
+    data = {
+        'title': "О сайте",
+        'menu': menu,
+        'form': form,
+    }
+
+    return render(request, 'women/about.html', context=data)
 
 
 def add_page(request):

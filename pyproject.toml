@@ -12,6 +12,7 @@ dependencies = [
     "django-debug-toolbar>=8.0.0",
     "django-extensions>=4.1",
     "ipython>=9.17.1",
+    "pillow>=13.0.0",
     "unidecode>=1.4.0",
 ]
 
