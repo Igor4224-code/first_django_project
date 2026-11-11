@@ -2,7 +2,7 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, FormView
+from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 
 from .forms import AddPostForm, UploadFileForm
 from .models import TagPost, Women, Category, UploadFiles
@@ -83,18 +83,14 @@ def about(request):
 #     return render(request, 'women/addpage.html', context=data)
 
 
-class AddPage(FormView):
+class AddPage(CreateView):
     form_class = AddPostForm
     template_name = 'women/addpage.html'
-    success_url = reverse_lazy('home')
+    # success_url = reverse_lazy('home')
     extra_context = {
         'menu': menu,
         'title': "Добавление статьи"
     }
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
 
 
 # class AddPage(View):
@@ -110,6 +106,28 @@ class AddPage(FormView):
 #             return redirect('home')
 #
 #         return render(request, 'women/addpage.html', {'menu': menu, 'title': 'Добавление статьи', 'form': form})
+
+
+class EditPage(UpdateView):
+    model = Women
+    fields = ('title', 'slug', 'content', 'cat')
+    template_name = 'women/addpage.html'
+    success_url = reverse_lazy('home')
+    extra_context = {
+        'menu': menu,
+        'title': "Редактирование статьи"
+    }
+
+
+class DeletePage(DeleteView):
+    model = Women
+    template_name = 'women/delete_page.html'
+    success_url = reverse_lazy('home')
+    context_object_name = 'post'
+    extra_context = {
+        'menu': menu,
+        'title': "Удаление статьи"
+    }
 
 
 def contact(request):
