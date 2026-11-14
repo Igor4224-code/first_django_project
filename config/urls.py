@@ -28,6 +28,7 @@ urlpatterns = [
     path('horoscope/', include('horoscope.urls')),
     path('bboard/', include('bboard.urls')),
     path("__debug__/", include("debug_toolbar.urls")),
+    path("users/", include("users.urls", namespace="users")),
 ]
 
 if settings.DEBUG:
