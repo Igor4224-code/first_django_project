@@ -14,6 +14,7 @@ env/
 *.log
 db(old).sqlite3
 db.sqlite3
+db(1).sqlite3
 db.sqlite3-journal
 /media/
 /staticfiles/
