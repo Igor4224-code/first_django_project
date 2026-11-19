@@ -4,10 +4,9 @@ from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 
-from .forms import AddPostForm, UploadFileForm
+from .forms import AddPostForm, UploadFileForm, ContactForm
 from .models import TagPost, Women, Category, UploadFiles
 from .utils import DataMixin
 
@@ -66,9 +65,15 @@ class DeletePage(DataMixin, DeleteView):
     title_page = "Удаление статьи"
 
 
-@permission_required(perm='women.add_women', raise_exception=True)
-def contact(request):
-    return HttpResponse('<h1>Контакты</h1>')
+class ContactFormView(LoginRequiredMixin, DataMixin, FormView):
+    form_class = ContactForm
+    template_name = 'women/contact.html'
+    success_url = reverse_lazy('home')
+    title_page = "Обратная связь"
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
 
 
 def login(request):
